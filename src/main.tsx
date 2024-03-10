@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import settings from './app/settings';
 import './index.css';
 import Layout from './layout/Layout';
+import Nopage from './pages/404';
 import Todo from './pages/todo/page';
 import store from './redux/store';
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById(main_dom)!).render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Todo />} />
           </Route>
+          <Route path="/*" element={<Nopage />} />
         </Routes>
       </Provider>
     </BrowserRouter>
