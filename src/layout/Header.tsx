@@ -1,3 +1,4 @@
+import { avatar } from "appmon/generate";
 import { setThemeStore } from "appmon/storage";
 import { adslash } from "appmon/url";
 import { useEffect, useState } from "react";
@@ -55,7 +56,7 @@ export default function Header() {
 
                         >
                             <button className="w-full h-full m-0 p-0 border-0 outline-none" onClick={() => setDropdown(!dropdown)} onBlur={() => setDropdown(false)}>
-                                <Image className="w-8 h-8 rounded-full max-sm:hidden" src={'/logo.png'} alt="user photo" />
+                                <Image className="w-8 h-8 rounded-full max-sm:hidden" src={avatar('saeed')} alt="user photo" />
                             </button>
                             <div
                                 className={cn('z-50  md:ml-6 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 transition-all duration-100 absolute right-0 top-full opacity-0',

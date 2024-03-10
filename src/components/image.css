@@ -1,11 +1,11 @@
 .bg-blurr {
-    background-image: url(../blurr.webp);
+    background-image: url(./blurr.webp);
     transition: all 1s;
     animation: ImageBlurr 3s infinite;
 }
 
 .image-blurr {
-    background-image: url(../blurr.webp);
+    background-image: url(./blurr.webp);
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur(10px);
