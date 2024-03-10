@@ -5,11 +5,12 @@ import { defineConfig, loadEnv } from 'vite';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const env = loadEnv("mock", process.cwd(), "");
+// Object.assign(process.env, loadEnv("mock", process.cwd(), ""));
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: env.VITE_BASENAME,
+  base: env.VITE_BASENAME || '',
   server: {
     port: 3000,
   },
