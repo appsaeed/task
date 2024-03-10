@@ -1,23 +1,23 @@
 import { useDispatch } from "react-redux";
-import { grammarlyItem } from "../../../app/utils";
-import useTodoFilters from "../../../hooks/useTodoFilters";
+import { grammarlyItem } from "../../../app/utiles";
+import useTodoFilter from "../../../hooks/useTodoFilter";
 import useTodos from "../../../hooks/useTodos";
-import { colorChanged, statusChanged } from "../reduxs/actions";
+import { todoFilterColorChange, todoFilterStatusChange } from "../redux/actions";
 
 export default function Footer() {
 
     //calculate left task from todos 
     const dispatch = useDispatch();
-    const filters = useTodoFilters();
+    const filters = useTodoFilter();
     const todos = useTodos();
     const left_todo = useTodos().filter((todo) => !todo.completed);
 
     //color changed
     const handleColorChange = (color: 'red' | 'yellow' | 'green') => {
         if (filters.colors.includes(color)) {
-            dispatch(colorChanged(color, 'removed'))
+            dispatch(todoFilterColorChange(color, 'remove'))
         } else {
-            dispatch(colorChanged(color, 'added'))
+            dispatch(todoFilterColorChange(color, 'add'))
         }
     }
 
@@ -25,11 +25,11 @@ export default function Footer() {
         <div className="mt-4 flex justify-between text-xs text-gray-500">
             <p>{grammarlyItem(left_todo?.length, ['task', 'tasks', 'No task'])} left of {todos?.length}</p>
             <ul className="flex space-x-1 items-center text-xs">
-                <li onClick={() => dispatch(statusChanged('all'))} className={`cursor-pointer hover:underline ${filters.status === 'all' && 'font-bold'}`}>All</li>
+                <li onClick={() => dispatch(todoFilterStatusChange('all'))} className={`cursor-pointer hover:underline ${filters.status === 'all' && 'font-bold'}`}>All</li>
                 <li>|</li>
-                <li onClick={() => dispatch(statusChanged('in_complete'))} className={`cursor-pointer hover:underline ${filters.status === 'in_complete' && 'font-bold'}`}>Incomplete</li>
+                <li onClick={() => dispatch(todoFilterStatusChange('in_complete'))} className={`cursor-pointer hover:underline ${filters.status === 'in_complete' && 'font-bold'}`}>Incomplete</li>
                 <li>|</li>
-                <li onClick={() => dispatch(statusChanged('complete'))} className={`cursor-pointer hover:underline ${filters.status === 'complete' && 'font-bold'}`}>Complete</li>
+                <li onClick={() => dispatch(todoFilterStatusChange('complete'))} className={`cursor-pointer hover:underline ${filters.status === 'complete' && 'font-bold'}`}>Complete</li>
                 <li />
                 <li />
                 <li onClick={() => handleColorChange('green')} className={`h-3 w-3 border-2 border-green-500 md:hover:bg-green-500 rounded-full cursor-pointer ${filters?.colors?.includes('green') && 'bg-green-600'}`} />
