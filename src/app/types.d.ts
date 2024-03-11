@@ -9,3 +9,10 @@ export type TodoFilterType = {
     status: "all" | 'complete' | 'in_complete',
     colors: string[]
 }
+
+export type User = {
+    name: string,
+    email: string
+    user_id: string | number
+    image_url?: string
+}

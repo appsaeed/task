@@ -5,12 +5,6 @@ import Todos from "./components/Todos";
 
 export default function TodosPages() {
 
-    // useHead({
-    //     title: "Todos",
-    //     description: 'todo application is easy to use and maintained to work properly',
-    //     keywords: "todos, application, appsaeed, react, redux, javascript."
-    // })
-
     return (
         <>
 

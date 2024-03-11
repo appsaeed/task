@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { CiCirclePlus } from "react-icons/ci";
+import { GiNotebook } from "react-icons/gi";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import double_tick from "../images/double-tick.png";
-import note from "../images/notes.png";
-import plus from "../images/plus.png";
 import { addTodo, todoCompleteAll, todoCompleteAllClear } from "../redux/actions";
 
 export default function TodoHeader() {
@@ -30,27 +30,30 @@ export default function TodoHeader() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
-                <img src={note} className="w-6 h-6 absolute left-2" alt="Add todo" />
+                <GiNotebook className="text-gray-800 w-6 h-6 absolute left-2" />
 
                 <button
+                    title="Click to add new Task"
                     type="submit"
-                    className={`appearance-none w-6 h-6 bg-no-repeat bg-contain absolute right-2`}
-                    style={{
-                        backgroundImage: `url(${plus})`,
-                    }}
-                />
+                    className={`appearance-none w-6 h-6 bg-no-repeat bg-contain absolute right-2 top-1`}
+                >
+                    <CiCirclePlus className="w-6 h-8 text-gray-900" />
+
+                </button>
             </form>
             <ul className="flex justify-between my-4 text-xs text-gray-500">
                 <li
                     onClick={() => dispatch(todoCompleteAll())}
                     className="flex space-x-1 cursor-pointer"
+                    title="Complete all tasks"
                 >
                     <span>Complete All Tasks</span>
-                    <img className="w-4 h-4" src={double_tick} alt="Complete" />
+                    <IoCheckmarkDoneSharp className="w-4 h-4 text-green-600" />
                 </li>
                 <li
                     onClick={() => dispatch(todoCompleteAllClear())}
                     className="cursor-pointer"
+                    title="Clear all completed tasks"
                 >
                     Clear completed
                 </li>

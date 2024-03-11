@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { TodoType } from "../../../app/types";
 import { cn } from "../../../app/utiles";
-import cancelImage from "../images/cancel.png";
 import { todoColorSelect, todoCompleteToggle, todoDelete } from "../redux/actions";
 
 export default function Todo(todo: TodoType) {
@@ -30,7 +30,7 @@ export default function Todo(todo: TodoType) {
                     </svg>
                 )}
             </div>
-            <div onClick={() => setExpand(!expand)} className={cn("ms-3 pl-4 transition-all text-base w-72",
+            <div onClick={() => setExpand(!expand)} className={cn("ms-3 pl-4 transition-all text-base w-28 max-w-72",
                 {
                     "line-through": completed,
                     "truncate": !expand
@@ -49,12 +49,13 @@ export default function Todo(todo: TodoType) {
 
                 <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-400 hover:bg-red-500 ${color === 'red' && 'bg-red-600'}`} onClick={() => dispatch(todoColorSelect(todo_id, 'red'))}></div>
 
-                <img
+                <SlClose className="w-4 h-4 text-gray-800 cursor-pointer" onClick={() => dispatch(todoDelete(todo_id))} />
+                {/* <img
                     src={cancelImage}
                     className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
                     alt="Cancel"
                     onClick={() => dispatch(todoDelete(todo_id))}
-                />
+                /> */}
             </div>
         </div>
     )

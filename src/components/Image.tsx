@@ -22,6 +22,7 @@ export default function Image({ className, ...props }: Props) {
         });
 
         //check if the image is url loaded
+        console.log(img.current)
         if (img.current) {
             const image = img.current;
             image.addEventListener("load", () => {
@@ -32,7 +33,6 @@ export default function Image({ className, ...props }: Props) {
 
             return () => {
                 observer.unobserve(image);
-                observer.disconnect();
             }
         }
 
