@@ -1,6 +1,8 @@
 
+import { addDoc, collection } from "firebase/firestore";
 import { TodoFilterType, TodoType } from "../../../app/types";
 import { getTodoStore, nextTodo } from "../../../app/utiles";
+import { firestore } from "../../../firebase";
 import { TODO_ADD, TODO_COLOR_SELECT, TODO_COMPLETE_ALL, TODO_COMPLETE_ALL_CLEAR, TODO_COMPLETE_TOGGLE, TODO_DELETE, TODO_FILTER_COLOR_CHANGE, TODO_FILTER_STATUS_CHANGE, } from "./actions";
 
 
@@ -19,6 +21,18 @@ export const todoListReducer = (state = getTodoStore(), action: Action): TodoTyp
 
         //add new todo in todo list
         case TODO_ADD:
+
+            addDoc(collection(firestore, 'users', '10', 'todos'), {
+                data: [
+                    ...state,
+                    {
+                        id: nextTodo(state),
+                        title: action.payload,
+                        color: '',
+                        completed: false,
+                    }
+                ]
+            })
 
             return [
                 ...state,
