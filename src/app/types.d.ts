@@ -5,6 +5,7 @@ export type TodoType = {
     color: string,
     datetime?: number,
     notifyAt?: number,
+    notify_count?: number,
 }
 
 export type TodoFilterType = {

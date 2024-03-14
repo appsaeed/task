@@ -29,6 +29,7 @@ export const todoListReducer = (state = getTodoStore(), action: Action): TodoTyp
                     completed: false,
                     datetime: action.payload?.time || Date.now() + (1000 * 60 * 30),
                     notifyAt: Date.now(),
+                    notify_count: 0,
                 }
             ];
 

@@ -7,7 +7,7 @@ import settings from './app/settings';
 import './index.css';
 import Layout from './layout/Layout';
 import Nopage from './pages/404';
-import TestPage from './pages/TestPage';
+import Tokenization from './pages/Tokenization';
 import Todo from './pages/todo/page';
 import store from './redux/store';
 
@@ -41,7 +41,7 @@ ReactDOM.createRoot(document.getElementById(main_dom)!).render(
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Todo />} />
-              <Route path='/test' element={<TestPage />} />
+              <Route path='/tokenization' element={<Tokenization />} />
             </Route>
             <Route path="/*" element={<Nopage />} />
           </Routes>

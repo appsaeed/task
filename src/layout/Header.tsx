@@ -48,7 +48,7 @@ export default function Header() {
                     <div className="flex items-center md:order-2">
                         <div className="relative cursor-pointer mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-8 h-8">
                             <Dropdown header={<DropdownHeader />}>
-                                <DropdownItem name="Dashboard" />
+                                <DropdownItem name="Tokenization" link="/tokenization" />
                                 <DropdownItem name="Settings" />
                                 <DropdownItem name="Earnings" />
                                 <DropdownItem name="Sign out" />
