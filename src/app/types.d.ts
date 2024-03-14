@@ -3,6 +3,8 @@ export type TodoType = {
     id: number,
     completed: boolean,
     color: string,
+    datetime?: number,
+    notifyAt?: number,
 }
 
 export type TodoFilterType = {

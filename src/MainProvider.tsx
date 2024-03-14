@@ -1,14 +1,9 @@
 import { ref, set } from 'firebase/database';
 import { getToken } from 'firebase/messaging';
-import { onBackgroundMessage } from 'firebase/messaging/sw';
 import { ReactNode, useEffect } from 'react';
 import { database, messaging } from './firebase';
 
 export default function MainProvider({ children }: { children: ReactNode }) {
-
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    const deviceName = isMobile ? 'android' : 'desktop';
-    const db_ref = ref(database, 'tokens/' + deviceName)
 
     useEffect(() => {
         Notification.requestPermission().then(function (permission) {
@@ -24,8 +19,16 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
                     })
                     .then((token) => {
+
                         if (token) {
-                            set(db_ref, token)
+
+                            if (!localStorage.getItem('notify_token')) {
+
+                                const tokens_ref = ref(database, 'tokens/' + token);
+                                set(tokens_ref, token)
+                                localStorage.setItem('notify_token', token)
+                            }
+
                         } else {
                             console.log('No registration token available.')
                         }
@@ -36,10 +39,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
                 alert('Your notification is not allowed please check permissions')
             }
         })
-    }, [db_ref])
+    }, [])
 
-    onBackgroundMessage(messaging, function (payload) {
-        console.log('firebase Recieved background message', payload)
-    })
     return children;
 }
