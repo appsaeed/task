@@ -22,8 +22,10 @@ export default function MainProvider({ children }: { children: ReactNode }) {
                             applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
                         }).then(subscription => {
 
+                            //create token to base64 encode
                             const token = btoa(JSON.stringify(subscription));
 
+                            //save to local storage
                             localStorage.setItem('notify_token', token)
 
                         })
