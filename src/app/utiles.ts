@@ -1,5 +1,6 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import settings from "./settings";
 import { TodoType } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
@@ -54,4 +55,31 @@ export const grammarlyItem = (count: number, items: [string, string, string | un
         default:
             return count + ' ' + items[1]
     }
+}
+
+
+
+export async function pushSubscribe(callback: (token: string) => void) {
+
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') {
+        throw ('Your notification is not allowed please check permissions')
+    }
+
+    if (!("serviceWorker" in navigator)) {
+        throw ('Your notification is not allowed please check permissions');
+    }
+
+    const worker_path = settings.url + '/worker.js';
+    const register = await navigator.serviceWorker.register(worker_path);
+
+    const subscription = await register.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
+    })
+
+    const token = btoa(JSON.stringify(subscription));
+
+    localStorage.setItem('notification_token', token)
+    return callback(token);
 }

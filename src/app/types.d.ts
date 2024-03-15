@@ -1,3 +1,9 @@
+
+export type Action = {
+    type: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload: any
+}
 export type TodoType = {
     title: string,
     id: number,
@@ -18,4 +24,8 @@ export type User = {
     email: string
     user_id: string | number
     image_url?: string
+}
+
+export type NotifyType = {
+    token: string | null
 }

@@ -1,43 +1,58 @@
 import { ReactNode, useEffect } from 'react';
-import settings from './app/settings';
-import { urlBase64ToUint8Array } from './app/utiles';
+import { useDispatch } from 'react-redux';
+import { pushSubscribe } from './app/utiles';
+import useNotify from './hooks/useNotify';
+import { notifyTokenUpdate } from './redux/notifyStore';
 
 export default function MainProvider({ children }: { children: ReactNode }) {
 
+
+    const notify = useNotify();
+    const dispatch = useDispatch();
+
     useEffect(() => {
 
-        Notification.requestPermission().then(function (permission) {
+        if (!notify.token) {
+            console.log('loading ')
+            pushSubscribe(function (token) {
+                if (token) dispatch(notifyTokenUpdate(token));
+            })
+        }
 
-            if (permission === 'granted') {
+        // Notification.requestPermission().then(function (permission) {
 
-                const serviceWorker = settings.url + '/worker.js';
+        //     if (permission === 'granted') {
 
-                if ("serviceWorker" in navigator) {
-                    //register service worker
-                    navigator.serviceWorker.register(serviceWorker).then((register) => {
+        //         const serviceWorker = settings.url + '/worker.js';
 
-                        //register subscription
-                        register.pushManager.subscribe({
-                            userVisibleOnly: true,
-                            applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
-                        }).then(subscription => {
+        //         if ("serviceWorker" in navigator) {
+        //             //register service worker
+        //             navigator.serviceWorker.register(serviceWorker).then((register) => {
 
-                            //create token to base64 encode
-                            const token = btoa(JSON.stringify(subscription));
+        //                 //register subscription
+        //                 register.pushManager.subscribe({
+        //                     userVisibleOnly: true,
+        //                     applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
+        //                 }).then(subscription => {
 
-                            //save to local storage
-                            localStorage.setItem('notify_token', token)
+        //                     //create token to base64 encode
+        //                     const token = btoa(JSON.stringify(subscription));
 
-                        })
+        //                     dispatch(notifyTokenAdd(token))
 
-                    }).catch(e => console.error(e))
+        //                     //save to local storage
+        //                     localStorage.setItem('notify_token', token)
 
-                }
+        //                 })
 
-            } else {
-                alert('Your notification is not allowed please check permissions')
-            }
-        })
+        //             }).catch(e => console.error(e))
+
+        //         }
+
+        //     } else {
+        //         alert('Your notification is not allowed please check permissions')
+        //     }
+        // })
     }, [])
 
 
