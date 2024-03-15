@@ -28,14 +28,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
                         if (token) {
 
-                            const local_token = localStorage.getItem('notify_token')
-
-                            if (!local_token) {
-
-                                console.log('token updated to local storage')
-
-                                localStorage.setItem('notify_token', token)
-                            }
+                            localStorage.setItem('notify_token', token)
 
                         } else {
                             console.log('No registration token available.')
