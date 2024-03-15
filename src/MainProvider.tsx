@@ -1,6 +1,6 @@
+import { unslash } from 'appmon/url';
 import { getToken } from 'firebase/messaging';
 import { ReactNode, useEffect } from 'react';
-import settings from './app/settings';
 import { messaging } from './firebase';
 
 export default function MainProvider({ children }: { children: ReactNode }) {
@@ -11,7 +11,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
             if (permission === 'granted') {
 
-                const base = `/${settings.basename}/` || "";
+                const base = '/' + unslash(import.meta.env.BASE_URL) || "";
 
                 navigator.serviceWorker.register(base + `/firebase-messaging-sw.js`)
                     .then((sw) => getToken(messaging, {
