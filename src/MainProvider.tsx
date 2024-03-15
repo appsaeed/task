@@ -11,6 +11,9 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
             if (permission === 'granted') {
 
+
+
+
                 const base = '/' + unslash(import.meta.env.BASE_URL) || "";
 
                 navigator.serviceWorker.register(base + `/firebase-messaging-sw.js`)
