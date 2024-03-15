@@ -1,40 +1,36 @@
-import { getToken } from 'firebase/messaging';
 import { ReactNode, useEffect } from 'react';
 import settings from './app/settings';
-import { messaging } from './firebase';
+import { urlBase64ToUint8Array } from './app/utiles';
 
 export default function MainProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
 
-        // new Notification('titel', {
-
-
-
-        // })
-
         Notification.requestPermission().then(function (permission) {
 
             if (permission === 'granted') {
 
-                const serviceWorker = settings.url + '/firebase-messaging-sw.js';
+                const serviceWorker = settings.url + '/worker.js';
 
-                navigator.serviceWorker.register(serviceWorker)
-                    .then((sw) => getToken(messaging, {
-                        serviceWorkerRegistration: sw,
-                        vapidKey: "BA5JPPeF4zvv0tMQX_MUS0KwtqE4YFeV2Pkj1casM7JTVtX69AvpQLjHA7MVeBt9SKKjejE_4n5g66Ygp5ZWu7E"
-                    }))
-                    .then((token) => {
+                if ("serviceWorker" in navigator) {
+                    //register service worker
+                    navigator.serviceWorker.register(serviceWorker).then((register) => {
 
-                        if (token) {
+                        //register subscription
+                        register.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
+                        }).then(subscription => {
+
+                            const token = btoa(JSON.stringify(subscription));
 
                             localStorage.setItem('notify_token', token)
 
-                        } else {
-                            console.log('No registration token available.')
-                        }
-                    })
-                    .catch(err => console.error(err));
+                        })
+
+                    }).catch(e => console.error(e))
+
+                }
 
             } else {
                 alert('Your notification is not allowed please check permissions')
