@@ -11,7 +11,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
             if (permission === 'granted') {
 
-                navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                navigator.serviceWorker.register(`/${settings.basename}/firebase-messaging-sw.js`)
                     .then((sw) => getToken(messaging, {
                         serviceWorkerRegistration: sw,
                         vapidKey: "BA5JPPeF4zvv0tMQX_MUS0KwtqE4YFeV2Pkj1casM7JTVtX69AvpQLjHA7MVeBt9SKKjejE_4n5g66Ygp5ZWu7E"
@@ -42,23 +42,23 @@ export default function MainProvider({ children }: { children: ReactNode }) {
     }, [])
 
 
-    useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                .then(_registration => {
-                    // console.log('Service Worker registered');
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
-        }
+    // useEffect(() => {
+    //     if ('serviceWorker' in navigator) {
+    //         navigator.serviceWorker.register('/sw.js')
+    //             // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //             .then(_registration => {
+    //                 // console.log('Service Worker registered');
+    //             })
+    //             .catch(error => {
+    //                 console.error('Service Worker registration failed:', error);
+    //             });
+    //     }
 
-        navigator.serviceWorker.controller?.postMessage({
-            type: 'settings',
-            payload: settings
-        });
-    })
+    //     navigator.serviceWorker.controller?.postMessage({
+    //         type: 'settings',
+    //         payload: settings
+    //     });
+    // })
 
     return children;
 }
