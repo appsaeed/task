@@ -52,7 +52,7 @@ self.addEventListener('message', event => {
     /** @type {import('../src/app/settings').Settings} */
     const settings = event.data.payload;
     // Handle the received data
-    console.log('Data received in service worker:', settings);
+    // console.log('Data received in service worker:', settings);
   
     // eslint-disable-next-line no-undef
     clients.matchAll().then(clients => {

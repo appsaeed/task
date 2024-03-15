@@ -12,23 +12,6 @@ import Todo from './pages/todo/page';
 import store from './redux/store';
 
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/todo/sw.js')
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .then(_registration => {
-      // console.log('Service Worker registered');
-    })
-    .catch(error => {
-      console.error('Service Worker registration failed:', error);
-    });
-}
-
-navigator.serviceWorker.controller?.postMessage({
-  type: 'settings',
-  payload: settings
-});
-
-
 //main dom element selector
 const main_dom = import.meta.env.VITE_MAIN_DOM || '%VITE_MAIN_DOM%';
 
