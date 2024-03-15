@@ -13,8 +13,6 @@ const settings = {
 
     basename: unslash(import.meta.env.VITE_BASENAME || ""),
 
-    publicURL: import.meta.env.BASE_URL,
-
     url: adslash(location.origin) + unslash(import.meta.env.BASE_URL),
 
     theme_key: import.meta.env.VITE_THEME_STORAGE,

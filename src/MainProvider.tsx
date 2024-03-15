@@ -11,7 +11,9 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
             if (permission === 'granted') {
 
-                navigator.serviceWorker.register(`/${settings.basename}/firebase-messaging-sw.js`)
+                const base = `/${settings.basename}/` || "";
+
+                navigator.serviceWorker.register(base + `/firebase-messaging-sw.js`)
                     .then((sw) => getToken(messaging, {
                         serviceWorkerRegistration: sw,
                         vapidKey: "BA5JPPeF4zvv0tMQX_MUS0KwtqE4YFeV2Pkj1casM7JTVtX69AvpQLjHA7MVeBt9SKKjejE_4n5g66Ygp5ZWu7E"
