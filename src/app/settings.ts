@@ -1,7 +1,16 @@
 import { deviceTheme } from "appmon/detection";
 import { getThemeStore } from "appmon/storage";
-import { adslash, unslash } from "appmon/url";
+import { unslash } from "appmon/url";
 import logo from '/logo.png';
+
+const basename = unslash(import.meta.env.VITE_BASENAME || "");
+
+function makeHomeUrl() {
+    if (basename) {
+        return location.origin + "/" + basename;
+    }
+    return location.origin
+}
 
 const settings = {
 
@@ -11,9 +20,9 @@ const settings = {
 
     logo,
 
-    basename: unslash(import.meta.env.VITE_BASENAME || ""),
+    basename: basename,
 
-    url: adslash(location.origin) + unslash(import.meta.env.BASE_URL),
+    url: makeHomeUrl(),
 
     theme_key: import.meta.env.VITE_THEME_STORAGE,
 

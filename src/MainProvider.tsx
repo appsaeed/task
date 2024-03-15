@@ -1,22 +1,25 @@
-import { unslash } from 'appmon/url';
 import { getToken } from 'firebase/messaging';
 import { ReactNode, useEffect } from 'react';
+import settings from './app/settings';
 import { messaging } from './firebase';
 
 export default function MainProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
 
+        // new Notification('titel', {
+
+
+
+        // })
+
         Notification.requestPermission().then(function (permission) {
 
             if (permission === 'granted') {
 
+                const serviceWorker = settings.url + '/firebase-messaging-sw.js';
 
-
-
-                const base = '/' + unslash(import.meta.env.BASE_URL) || "";
-
-                navigator.serviceWorker.register(base + `/firebase-messaging-sw.js`)
+                navigator.serviceWorker.register(serviceWorker)
                     .then((sw) => getToken(messaging, {
                         serviceWorkerRegistration: sw,
                         vapidKey: "BA5JPPeF4zvv0tMQX_MUS0KwtqE4YFeV2Pkj1casM7JTVtX69AvpQLjHA7MVeBt9SKKjejE_4n5g66Ygp5ZWu7E"

@@ -23,8 +23,11 @@ messaging.onBackgroundMessage((payload) => {
   );
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: payload.notification.image,
+    title: payload.notification.title,
+    body: 'SW: '+payload.notification.body,
+    icon: "https://appsaeed.github.io/icon-512x512.png",
+    vibrate: true,
+    tag: payload.from
   };
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
