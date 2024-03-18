@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import settings from "../app/settings";
 import { cn } from "../app/utiles";
 import Dropdown from "../components/Dropdown";
-import DropdownHeader from "../components/DropdownHeader";
 import DropdownItem from "../components/DropdownItem";
 import Moon from "../components/Moon";
 import Sun from "../components/Sun";
@@ -46,12 +45,14 @@ export default function Header() {
                     <SwtichTheme />
 
                     <div className="flex items-center md:order-2">
-                        <div className="relative cursor-pointer mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-8 h-8">
-                            <Dropdown header={<DropdownHeader />}>
+                        <div className="relative cursor-pointer mr-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-8 h-8">
+                            <Dropdown
+                            //  header={<DropdownHeader />}
+                            >
                                 <DropdownItem name="Tokenization" link="/tokenization" />
-                                <DropdownItem name="Settings" />
+                                {/* <DropdownItem name="Settings" />
                                 <DropdownItem name="Earnings" />
-                                <DropdownItem name="Sign out" />
+                                <DropdownItem name="Sign out" /> */}
                             </Dropdown>
                         </div>
                     </div>
@@ -79,7 +80,7 @@ export function SwtichTheme() {
     };
 
     return (
-        <div onClick={handleTheme} className={`block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer text-2xl`}>
+        <div onClick={handleTheme} className={`p-2 text-gray-900  hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer text-2xl rounded-full`}>
             {dark ? <Moon /> : <Sun />}
         </div>
     );

@@ -13,10 +13,10 @@ export const TODO_FILTER_STATUS_CHANGE = 'TODO_FILTER_STATUS_CHANGED';
 export const TODO_FILTER_COLOR_CHANGE = 'TODO_FILTER_COLOR_CHANGE';
 
 //add todo list
-export function addTodo(title: string) {
+export function addTodo(todo: { title: string, datetime: number }) {
     return {
         type: TODO_ADD,
-        payload: title,
+        payload: todo,
     }
 }
 

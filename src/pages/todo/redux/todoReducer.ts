@@ -24,10 +24,10 @@ export const todoListReducer = (state = getTodoStore(), action: Action): TodoTyp
                 ...state,
                 {
                     id: nextTodo(state),
-                    title: action.payload,
+                    title: action.payload.title,
                     color: '',
                     completed: false,
-                    datetime: action.payload?.time || Date.now() + (1000 * 60 * 30),
+                    datetime: action.payload.datetime,
                     notifyAt: Date.now(),
                     notify_count: 0,
                 }

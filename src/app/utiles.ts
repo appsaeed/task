@@ -75,11 +75,13 @@ export async function pushSubscribe(callback: (token: string) => void) {
 
     const subscription = await register.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BNt0ygqWTSXEd9AJ_Vv2e0jaK73vAjCykOD58lXwinRrnkpwX0lN1cGETwjS10Tvby3d9fDSNZMy6ZdA4xmA30U')
+        applicationServerKey: urlBase64ToUint8Array(import.meta.env.VITE_NOTIFY_PUBLIC_KEY)
     })
 
     const token = btoa(JSON.stringify(subscription));
 
-    localStorage.setItem('notification_token', token)
+    // localStorage.setItem('notification_token', token)
     return callback(token);
 }
+
+

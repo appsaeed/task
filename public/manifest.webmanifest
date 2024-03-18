@@ -1,7 +1,7 @@
 {
     "theme_color": "#e2e8f2",
     "background_color": "#0f172a",
-    "display": "minimal-ui",
+    "display": "fullscreen",
     "scope": ".",
     "start_url": ".",
     "name": "My Task",
