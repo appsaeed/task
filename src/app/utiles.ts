@@ -70,7 +70,7 @@ export async function pushSubscribe(callback: (token: string) => void) {
         throw ('Your notification is not allowed please check permissions');
     }
 
-    const worker_path = settings.url + '/worker.js';
+    const worker_path = settings.url + '/push.js';
     const register = await navigator.serviceWorker.register(worker_path);
 
     const subscription = await register.pushManager.subscribe({
