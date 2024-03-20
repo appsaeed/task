@@ -1,0 +1,12 @@
+{
+  "notification": "notification object",
+  "target": {
+    "registration": {
+      "active": {
+        "scriptURL": "",
+        "state": "activated"
+      },
+      "socpe": "url"
+    }
+  }
+}

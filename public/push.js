@@ -14,16 +14,15 @@ self.addEventListener("push", function (e) {
       }
     ]
   };
-  var notification = self.registration.showNotification(title, options);
-
-  console.log(notification);
+  
+  self.registration.showNotification(title, options);
 
   self.addEventListener('notificationclick', function (event) {
     event.notification.close(); 
-  
+    
     if (event.action) {
       event.waitUntil(
-        clients.openWindow('https://appsaeed.github.io') 
+        clients.openWindow(event.target.registration.scope) 
       );
     }
   });
