@@ -13,7 +13,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const worker_path = settings.url + '/push.js';
-        if (notify.token) {
+        if (!notify.token) {
             pushSubscribe(worker_path)
                 .then((token) => dispatch(notifyTokenUpdate(token)))
                 .catch((err) => console.log("ERROR:: ", err));
