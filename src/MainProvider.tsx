@@ -1,23 +1,38 @@
-import { ReactNode, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { pushSubscribe } from './app/utiles';
-import useNotify from './hooks/useNotify';
-import { notifyTokenUpdate } from './redux/notifyStore';
+import { ReactNode, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import settings from "./app/settings";
+import { subscribe } from "./app/utiles";
+import useNotify from "./hooks/useNotify";
+import { notifyTokenUpdate } from "./redux/notifyStore";
 
 export default function MainProvider({ children }: { children: ReactNode }) {
-
-
     const notify = useNotify();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!notify.token) {
-            console.log('loading new notification token')
-            pushSubscribe(function (token) {
-                if (token) dispatch(notifyTokenUpdate(token));
-            })
+        const worker_path = settings.url + '/push.js';
+        if (notify.token) {
+            subscribe(worker_path)
+                .then((token) => dispatch(notifyTokenUpdate(token)))
+                .catch((err) => console.log("ERROR:: ", err));
         }
-    }, [])
+    }, []);
 
-    return children;
+    return (
+        <>
+            {children}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                pauseOnHover
+                theme={settings.theme}
+            />
+        </>
+    );
 }

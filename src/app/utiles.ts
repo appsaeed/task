@@ -7,6 +7,19 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+export const worker_path = settings.url + '/push.js';
+
+export function errorToString(error: any): string {
+
+    if (Array.isArray(error)) {
+        return String(error.join(' '))
+    } else if (typeof error === 'object') {
+        return String(JSON.stringify(error))
+    }
+
+    return String(error)
+
+}
 
 export function urlBase64ToUint8Array(base64String: string | any[]) {
     const padding = "=".repeat((4 - base64String.length % 4) % 4);
@@ -57,6 +70,43 @@ export const grammarlyItem = (count: number, items: [string, string, string | un
     }
 }
 
+
+export function subscribe(worker_path: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        try {
+
+            const subscribe = {
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(import.meta.env.VITE_NOTIFY_PUBLIC_KEY)
+            }
+
+            if (!("serviceWorker" in navigator)) {
+                reject('Your browser does not support service worker functionality');
+            }
+
+            Notification.requestPermission().then((permission) => {
+
+                if (permission !== 'granted') {
+                    reject('Your notification is not allowed please check permissions')
+                }
+
+                navigator.serviceWorker.register(worker_path).then((worker) => {
+
+                    worker.pushManager.subscribe(subscribe).then((subscription) => {
+
+                        resolve(btoa(JSON.stringify(subscription)));
+
+                    }).catch(reject);
+
+                }).catch(reject);
+
+            }).catch(reject);
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 
 export async function pushSubscribe(callback: (token: string) => void) {
