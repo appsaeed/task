@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import settings from "./app/settings";
-import { subscribe } from "./app/utiles";
+import { pushSubscribe } from "./app/utiles";
 import useNotify from "./hooks/useNotify";
 import { notifyTokenUpdate } from "./redux/notifyStore";
 
@@ -14,7 +14,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const worker_path = settings.url + '/push.js';
         if (notify.token) {
-            subscribe(worker_path)
+            pushSubscribe(worker_path)
                 .then((token) => dispatch(notifyTokenUpdate(token)))
                 .catch((err) => console.log("ERROR:: ", err));
         }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { errorToString, subscribe, worker_path } from "../app/utiles";
+import { errorToString, pushSubscribe, worker_path } from "../app/utiles";
 import useNotify from "../hooks/useNotify";
 import { notifyTokenUpdate } from "../redux/notifyStore";
 
@@ -16,7 +16,7 @@ export default function Tokenization() {
 
         setLoading(true)
 
-        subscribe(worker_path)
+        pushSubscribe(worker_path)
             .then(token => dispatch(notifyTokenUpdate(token)))
             .catch(error => toast.error(errorToString(error)))
             .finally(() => setLoading(false));

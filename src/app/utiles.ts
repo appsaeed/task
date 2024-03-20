@@ -71,7 +71,7 @@ export const grammarlyItem = (count: number, items: [string, string, string | un
 }
 
 
-export function subscribe(worker_path: string): Promise<string> {
+export function pushSubscribe(worker_path: string): Promise<string> {
     return new Promise((resolve, reject) => {
         try {
 
@@ -107,31 +107,3 @@ export function subscribe(worker_path: string): Promise<string> {
         }
     })
 }
-
-
-export async function pushSubscribe(callback: (token: string) => void) {
-
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-        throw ('Your notification is not allowed please check permissions')
-    }
-
-    if (!("serviceWorker" in navigator)) {
-        throw ('Your notification is not allowed please check permissions');
-    }
-
-    const worker_path = settings.url + '/push.js';
-    const register = await navigator.serviceWorker.register(worker_path);
-
-    const subscription = await register.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(import.meta.env.VITE_NOTIFY_PUBLIC_KEY)
-    })
-
-    const token = btoa(JSON.stringify(subscription));
-
-    // localStorage.setItem('notification_token', token)
-    return callback(token);
-}
-
-
