@@ -90,7 +90,7 @@ export function pushSubscribe(worker_path: string): Promise<string> {
                     reject('Your notification is not allowed please check permissions')
                 }
 
-                navigator.serviceWorker.register(worker_path).then((worker) => {
+                navigator.serviceWorker.register(worker_path, { scope: settings.scope }).then((worker) => {
 
                     worker.pushManager.subscribe(subscribe).then((subscription) => {
 

@@ -18,6 +18,15 @@ export default function MainProvider({ children }: { children: ReactNode }) {
 
     }, []);
 
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            const sw_path = settings.url + '/push.js';
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register(sw_path, { scope: settings.scope })
+            })
+        }
+    }, [])
+
     return (
         <>
             {children}

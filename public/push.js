@@ -19,10 +19,11 @@ self.addEventListener("push", function (e) {
 
   self.addEventListener('notificationclick', function (event) {
     event.notification.close(); 
-    
+
     if (event.action) {
       event.waitUntil(
-        clients.openWindow(event.target.registration.scope) 
+        clients.openWindow(event.target.registration.scope)
+        // clients.openWindow('https://appsaeed.github.io/task')
       );
     }
   });

@@ -12,6 +12,10 @@ function makeHomeUrl() {
     return location.origin
 }
 
+function makeScope() {
+    return '/' + basename + '/';
+}
+
 const settings = {
 
     name: import.meta.env.VITE_NAME || "Appsaeed",
@@ -23,6 +27,8 @@ const settings = {
     basename: basename,
 
     url: makeHomeUrl(),
+
+    scope: makeScope(),
 
     theme_key: import.meta.env.VITE_THEME_STORAGE,
 
