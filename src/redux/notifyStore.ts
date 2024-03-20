@@ -19,7 +19,8 @@ export function notifyTokenUpdate(token: string) {
 }
 
 const initState: NotifyType = {
-    token: localStorage.getItem('notification_token'),
+    // token: localStorage.getItem('notification_token'),
+    token: null
 }
 
 export const notifyReducer = (state = initState, action: Action): NotifyType => {
