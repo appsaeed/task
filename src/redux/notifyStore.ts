@@ -28,7 +28,6 @@ export const notifyReducer = (state = initState, action: Action): NotifyType => 
 
         //add new todo in todo list
         case NOTIFY_TOKEN_ADD:
-
             return {
                 ...state,
                 token: action.payload
@@ -36,7 +35,6 @@ export const notifyReducer = (state = initState, action: Action): NotifyType => 
 
 
         case NOTIFY_TOKEN_UPDATE:
-
             return {
                 ...state,
                 token: action.payload

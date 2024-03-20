@@ -3,7 +3,6 @@ self.addEventListener("push", function (e) {
   var data = e.data.json();
   var body = (data === null || data === void 0 ? void 0 : data.body) || 'Todo';
   var title = (data === null || data === void 0 ? void 0 : data.title) || 'Todo'
-
   var options = {
     body: body,
     badge: 'dot',
@@ -11,16 +10,24 @@ self.addEventListener("push", function (e) {
     actions: [
       {
         action: 'open-task',
-        title: 'open'
+        title: 'Open now'
       }
     ]
   };
-  self.registration.showNotification(title, options);
+  var notification = self.registration.showNotification(title, options);
+
+  console.log(notification);
+
+  self.addEventListener('notificationclick', function (event) {
+    event.notification.close(); 
+  
+    if (event.action) {
+      event.waitUntil(
+        clients.openWindow('https://appsaeed.github.io') 
+      );
+    }
+  });
+
 });
 
-self.addEventListener('notificationclick', function(event) {
-  const action = event.action;
-  if (action === 'open-task') {
-    event.waitUntil(clients.openWindow('https://appsaeed.github.io/task'));
-  }
-});
+
