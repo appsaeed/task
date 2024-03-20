@@ -2,7 +2,7 @@ import react from "@vitejs/plugin-react-swc";
 import { readFile, writeFile } from "fs/promises";
 import { resolve } from "path";
 import { defineConfig, loadEnv } from "vite";
-import { ManifestOptions } from "vite-plugin-pwa";
+import { ManifestOptions, VitePWA } from "vite-plugin-pwa";
 
 const env = loadEnv("mock", process.cwd(), "");
 
@@ -73,23 +73,24 @@ const manifest: Partial<ManifestOptions> = {
 export default defineConfig({
   plugins: [
     react(),
-    // VitePWA({
-    //   manifest: manifest,
-    //   // strategies: "injectManifest",
-    //   registerType: "autoUpdate",
-    //   injectRegister: "auto",
-    //   devOptions: {
-    //     enabled: false,
-    //   },
-    //   workbox: {
-    //     clientsClaim: true,
-    //     cleanupOutdatedCaches: false,
-    //     skipWaiting: true,
-    //     sourcemap: true,
-    //     maximumFileSizeToCacheInBytes: 3000000,
-    //     globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,json}"],
-    //   },
-    // }),
+    VitePWA({
+      manifest: manifest,
+      // strategies: "injectManifest",
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      devOptions: {
+        enabled: false,
+      },
+      workbox: {
+        clientsClaim: true,
+        cleanupOutdatedCaches: false,
+        skipWaiting: true,
+        sourcemap: true,
+        maximumFileSizeToCacheInBytes: 3000000,
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,json}"],
+      },
+
+    }),
   ],
   base: env.VITE_BASENAME || "/",
   server: {
