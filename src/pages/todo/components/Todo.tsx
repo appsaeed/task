@@ -3,23 +3,23 @@ import { SlClose } from "react-icons/sl";
 import { useDispatch } from "react-redux";
 import { TodoType } from "../../../app/types";
 import { cn } from "../../../app/utiles";
-import ButtonCircleColor from "../../../components/ButtonCircleColor";
-import { todoColorSelect, todoCompleteToggle, todoDelete } from "../redux/actions";
+import { todoCompleteToggle, todoDelete } from "../redux/actions";
+import { ShowColorGroup } from "./ShowColorGroup";
 
 export default function Todo(todo: TodoType) {
     const dispatch = useDispatch();
     const { title, id: todo_id, completed, color } = todo;
     const [expand, setExpand] = useState(false);
-    const [groupBtns, setGroupBtns] = useState(false);
+    const [showGroup, setGroup] = useState(false);
+
 
     const groupRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
 
-        function hideTodoColors(event: Event) {
-
-            if (groupRef.current && !groupRef.current.contains(event.target as Node)) {
-                setGroupBtns(false);
+        function hideTodoColors(e: Event) {
+            if (groupRef.current && !groupRef.current.contains(e.target as Node)) {
+                setGroup(false)
             }
         }
         document.body.addEventListener('click', hideTodoColors)
@@ -32,7 +32,6 @@ export default function Todo(todo: TodoType) {
 
     return (
         <div
-            onDoubleClick={() => setGroupBtns(true)}
             className={cn("relative flex items-center overflow-hidden px-3 py-1 my-1 text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white space-x-4 cursor-pointer")}
         >
             <div
@@ -67,14 +66,17 @@ export default function Todo(todo: TodoType) {
             </span> */}
 
             <div
-                ref={groupRef}
                 className={cn('flex space-x-3 absolute transition-all right-3')}
+                ref={groupRef}
             >
 
-                {groupBtns
-                    ? <ColorButtonGroup color={color} todo_id={todo_id} />
-                    : <ButtonCircleColor color={color} todoColor={color} />
-                }
+                <ShowColorGroup
+                    color={color}
+                    todo_id={todo_id}
+                    showGroup={showGroup}
+                    setGroup={() => setGroup(true)}
+                />
+
                 <SlClose
                     className="w-4 h-4 text-gray-800 cursor-pointer"
                     onClick={() => dispatch(todoDelete(todo_id))}
@@ -85,25 +87,3 @@ export default function Todo(todo: TodoType) {
 }
 
 
-export function ColorButtonGroup({ todo_id, color }: { color: string, todo_id: number }) {
-    const dispatch = useDispatch();
-
-    return (<>
-        <ButtonCircleColor
-            todoColor={color}
-            color="green"
-            onClick={() => dispatch(todoColorSelect(todo_id, 'green'))}
-        />
-
-        <ButtonCircleColor
-            todoColor={color}
-            color="yellow"
-            onClick={() => dispatch(todoColorSelect(todo_id, 'yellow'))}
-        />
-        <ButtonCircleColor
-            todoColor={color}
-            color="red"
-            onClick={() => dispatch(todoColorSelect(todo_id, 'red'))}
-        />
-    </>)
-}

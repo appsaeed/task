@@ -5,22 +5,25 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import settings from "./app/settings";
 import { pushSubscribe } from "./app/utiles";
+import useNotify from "./hooks/useNotify";
 import { notifyTokenUpdate } from "./redux/notifyStore";
 
 export default function MainProvider({ children }: { children: ReactNode }) {
+    const notify = useNotify();
     const dispatch = useDispatch();
 
     useEffect(() => {
         const worker_path = settings.url + '/push.js';
-        pushSubscribe(worker_path)
-            .then((token) => dispatch(notifyTokenUpdate(token)))
-            .catch((err) => toast.error(errorToString(err)));
-
+        if (!notify.token) {
+            pushSubscribe(worker_path)
+                .then((token) => dispatch(notifyTokenUpdate(token)))
+                .catch((err) => toast.error(errorToString(err)));
+        }
     }, []);
 
     useEffect(() => {
         if ('serviceWorker' in navigator) {
-            const sw_path = settings.url + '/push.js';
+            const sw_path = settings.url + '/sw.js';
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register(sw_path, { scope: settings.scope })
             })
