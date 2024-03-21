@@ -14,12 +14,11 @@ export default function TodoHeader() {
     function formSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        let makeTime = Date.now() + (60000 * 60);
+        let makeTime = Date.now() + (60000 * 22);
+
         if (datetime && datetime != '') {
             makeTime = (new Date(datetime)).getTime();
         }
-
-        console.log((new Date(makeTime).toLocaleString()));
 
         if (title) {
             dispatch(addTodo({
