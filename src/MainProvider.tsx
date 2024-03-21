@@ -21,14 +21,14 @@ export default function MainProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    useEffect(() => {
-        if ('serviceWorker' in navigator) {
-            const sw_path = settings.url + '/sw.js';
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register(sw_path, { scope: settings.scope })
-            })
-        }
-    }, [])
+    // useEffect(() => {
+    //     if ('serviceWorker' in navigator) {
+    //         const sw_path = settings.url + '/sw.js';
+    //         window.addEventListener('load', () => {
+    //             navigator.serviceWorker.register(sw_path, { scope: settings.scope })
+    //         })
+    //     }
+    // }, [])
 
     return (
         <>
