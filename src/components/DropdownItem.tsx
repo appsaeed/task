@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { cn } from "../app/utiles";
 
 interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
-    name: string;
+    name?: string;
     link?: string;
 }
 export default function DropdownItem({ link, name = 'name', ...props }: DropdownItemProps) {

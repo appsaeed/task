@@ -1,4 +1,5 @@
 import clsx, { ClassValue } from "clsx";
+import { formatDistance } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import settings from "./settings";
 import { TodoType } from "./types";
@@ -36,7 +37,6 @@ export function urlBase64ToUint8Array(base64String: string | any[]) {
     return outputArray;
 }
 
-
 //get todo from local storage 
 export function getTodoStore(): TodoType[] {
     try {
@@ -49,13 +49,23 @@ export function getTodoStore(): TodoType[] {
     return [];
 }
 
-
 export const nextTodo = (arr: TodoType[]) => {
     const maxid = arr.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
     return maxid + 1;
 }
 
+//todo show date time 
+export function datetime(time: number) {
+    return (new Date(time)).toLocaleString(undefined);
+}
 
+//todo time ago
+export function timeago(time = 0) {
+    const featuertime = new Date(time);
+    const currenttime = new Date();
+    const distanceTime = formatDistance(featuertime, currenttime, { addSuffix: true, includeSeconds: true });
+    return distanceTime.toString();
+}
 
 //make item pritty look like todo, tood no 
 export const grammarlyItem = (count: number, items: [string, string, string | undefined]) => {
