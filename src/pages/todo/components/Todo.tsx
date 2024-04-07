@@ -11,29 +11,12 @@ export default function Todo(todo: TodoType) {
     const dispatch = useDispatch();
     const { title, id: todo_id, completed, color, datetime } = todo;
     const [expand, setExpand] = useState(false);
-    const [showGroup, setGroup] = useState(false);
-
 
     const groupRef = useRef<HTMLDivElement>(null)
 
     const handleClick = (key: 'red' | 'green' | 'yellow') => {
         dispatch(todoColorSelect(todo_id, key))
     }
-
-    useEffect(() => {
-
-        function hideTodoColors(e: Event) {
-            if (groupRef.current && !groupRef.current.contains(e.target as Node)) {
-                setGroup(false)
-            }
-        }
-        document.body.addEventListener('click', hideTodoColors)
-
-        return () => {
-            document.body.removeEventListener('click', hideTodoColors);
-        }
-
-    }, [])
 
     return (
         <div
