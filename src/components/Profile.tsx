@@ -1,4 +1,4 @@
-import { avatar } from "appmon/generate";
+import { avatar } from "utilies";
 import { User } from "../app/types";
 import { cn } from "../app/utiles";
 import Image from "./Image";

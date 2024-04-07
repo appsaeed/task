@@ -1,8 +1,8 @@
-import { errorToString } from "appmon/convert";
 import { ReactNode, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { errorsToString } from "utilies";
 import settings from "./app/settings";
 import { pushSubscribe } from "./app/utiles";
 import useNotify from "./hooks/useNotify";
@@ -17,7 +17,7 @@ export default function MainProvider({ children }: { children: ReactNode }) {
         if (!notify.token) {
             pushSubscribe(worker_path)
                 .then((token) => dispatch(notifyTokenUpdate(token)))
-                .catch((err) => toast.error(errorToString(err)));
+                .catch((err) => toast.error(errorsToString(err)));
         }
     }, []);
 

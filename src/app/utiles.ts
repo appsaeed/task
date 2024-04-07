@@ -10,17 +10,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export const worker_path = settings.url + '/push.js';
 
-export function errorToString(error: any): string {
-
-    if (Array.isArray(error)) {
-        return String(error.join(' '))
-    } else if (typeof error === 'object') {
-        return String(JSON.stringify(error))
-    }
-
-    return String(error)
-
-}
 
 export function urlBase64ToUint8Array(base64String: string | any[]) {
     const padding = "=".repeat((4 - base64String.length % 4) % 4);
