@@ -1,3 +1,13 @@
-# React + TypeScript + Vite
+# Pretty Task
 
-https://nodejs-two-eta.vercel.app/send?token=eyJlbmRwb2ludCI6Imh0dHBzOi8vZmNtLmdvb2dsZWFwaXMuY29tL2ZjbS9zZW5kL2ZkTmkwYWlyMDNzOkFQQTkxYkVWQTFVOGltT0ZsUm5uNnd5OFhaaWNRUExqb0U1XzkzeXpvcEFYXy1veEd3N1pOUVlJRzBnY1IyOXRoX1dMa1ZkalRaU21HRnhKcHhtNDUzanAzWjNmQndwZTVoUUVfUGE3R28yZDRiamw2eW8ycm9UTF9XajExM3VyQUtqM1pOekhuTWdiIiwiZXhwaXJhdGlvblRpbWUiOm51bGwsImtleXMiOnsicDI1NmRoIjoiQkkwWHlFYl9uOGFUUlV0Rnk0Q0Q0NUQzVEw1T2xFQ2w3OHI0RXoyaEdtdTN2QzdFb1FGMkhOYmlKS0F2RUdBako4Y25PTnVGdmMyZjctMUVJaDBPSG5jIiwiYXV0aCI6IjZnZW52Wk9GVVN1cWQ2U1hXZG1IRlEifX0=
+# demo [link](https://github.com/appsaeed/task/)
+
+![](https://raw.githubusercontent.com/appsaeed/assets/main/projects/my-task/my-task-light.png)
+
+# Development & Contribute
+```sh
+git clone https://github.com/appsaeed/task.git
+cd task
+npm instal # install dependencies
+npm run dev # run development server
+```
