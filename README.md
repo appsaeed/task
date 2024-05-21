@@ -1,6 +1,6 @@
 # Pretty Task
 
-# demo [link](https://github.com/appsaeed/task/)
+# demo [link](https://appsaeed.github.io/task)
 
 ![](https://raw.githubusercontent.com/appsaeed/assets/main/projects/my-task/my-task-light.png)
 
